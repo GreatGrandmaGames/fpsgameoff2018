@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Damageable : MonoBehaviour {
 
+    //added stuff
     //TODO: Damageable data?
     public float StartingHealth;
 
