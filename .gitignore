@@ -1,0 +1,10 @@
+*
+
+!Assets
+!Assets/**
+Assets/TextMeshPro
+Assets/TextMeshPro/**
+!ProjectSettings
+!ProjectSettings/**
+!.gitignore
+!README
