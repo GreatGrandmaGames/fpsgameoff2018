@@ -12,7 +12,7 @@ public class ParametricFirearm : MonoBehaviour
 
     //Data Properties
     //Generated and set by the factory
-    public PFData Data { get; set; }
+    public PFData Data;
 
     //Ammo remaining in the clip
     public int CurrentAmmo { get; private set; }

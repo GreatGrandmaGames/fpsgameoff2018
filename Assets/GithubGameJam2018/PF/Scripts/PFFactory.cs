@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
+
+[System.Obsolete]
 public class PFFactory : MonoBehaviour{
 
     //Singleton
