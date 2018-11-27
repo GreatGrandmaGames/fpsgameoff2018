@@ -7,6 +7,9 @@ public class PFChargeTimeData
 {
     public float chargeTime;
     public bool releaseBeforeChargeComplete;
+
+    //Currently unused
+    [Tooltip("Current unused")]
     public float damageIncreaseRate;
 }
 

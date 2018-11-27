@@ -13,7 +13,6 @@ public class PF_AITest : MonoBehaviour {
         {
             moveSpeed = 3.5f,
             firingMoveSpeedFactor = 0.5f,
-            minRange = 1f
         };
     }
 
