@@ -36,11 +36,11 @@ public class Motor : MonoBehaviour {
         //calculate velocity
         velocity = (moveHorizontal + moveVertical).normalized * movementSpeed;
     } 
-    private void DoMovement(Vector3 velocity)
+    private void DoMovement(Vector3 velocityp)
     {
         //maybe we should have velocity equal to zero? unclear tho haven't bug tested enough
         if (velocity != Vector3.zero){
-            rb.MovePosition(rb.position + velocity * Time.deltaTime);
+            rb.MovePosition(rb.position + velocityp * Time.deltaTime);
         }
     }
 

@@ -15,45 +15,54 @@ public class PlayerController : MonoBehaviour {
     private Motor motor;
     public float jumpSpeed;
     public float movementSpeed;
-    private bool isGrounded;
+
 
     private ZeroG zeroG;
     //number of jumps allowed
     //TODO - implement
     public int numberOfJumps;
+    private int currentJumps;
+    private bool canJump;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         rb = GetComponent<Rigidbody>();
-        isGrounded = false;
+        canJump = false;
         zeroG = GetComponent<ZeroG>();
         motor = GetComponent<Motor>();
+        currentJumps = 0;
 
     }
 
     
-    void OnCollisionStay (Collision collision) {
-        isGrounded = true;
+    void OnCollisionStay(Collision collision) {
+        if (collision.gameObject.CompareTag("Floor")){
+            canJump = true;
+            currentJumps = 0;
+        }
     }
 
     //FixedUpdate - Physics
     void FixedUpdate()
     {
-        //jump
-        if (Input.GetButton("Jump") && isGrounded)
+        if (currentJumps >= numberOfJumps)
         {
+            canJump = false;
+        }
+        //jump
+        if (Input.GetButtonDown("Jump") && canJump)
+        {
+            currentJumps += 1;
             motor.Jump(jumpSpeed);
-            isGrounded = false;
+            if (currentJumps >= numberOfJumps)
+            {
+                canJump = false;
+            }
         }
         //start zero G
         if (Input.GetKeyDown(KeyCode.E))
         {
             zeroG.MoveInZeroG();
-        }
-        //stop zero g (fall)
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            zeroG.Reset();
         }
         //all movement that's not in ZeroG.
         if (!zeroG.inZeroG)
