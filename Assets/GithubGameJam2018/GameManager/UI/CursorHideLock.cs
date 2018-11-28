@@ -11,12 +11,12 @@ public class CursorHideLock : MonoBehaviour
     {
         Cursor.lockState = wantedMode;
         // Hide cursor when locking
-        Cursor.visible = (CursorLockMode.Confined != wantedMode);
+        Cursor.visible = (CursorLockMode.Locked != wantedMode);
     }
 
     void Start()
     {
-        wantedMode = CursorLockMode.Confined;
+        wantedMode = CursorLockMode.Locked;
         SetCursorState();
     }
     void Update()

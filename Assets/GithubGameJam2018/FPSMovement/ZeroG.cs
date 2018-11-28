@@ -26,7 +26,8 @@ public class ZeroG : MonoBehaviour {
 
     //time of fuel
     public float fuelTime = 3.0f;
-    private float currentFuelTime;
+    [HideInInspector]
+    public float currentFuelTime;
 
     public float timeScalar = 0.7f;
     //zero g thrust
@@ -104,5 +105,7 @@ public class ZeroG : MonoBehaviour {
         rb.angularDrag = originalAngularDrag;
         inZeroG = false;
         currentFuelTime = fuelTime;
+        rb.angularVelocity = Vector3.zero;
+        rb.velocity = Vector3.zero;
     }
 }

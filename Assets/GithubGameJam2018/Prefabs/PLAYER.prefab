@@ -265,8 +265,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpSpeed: 6
-  movementSpeed: 10
-  numberOfJumps: 1
+  movementSpeed: 8
+  numberOfJumps: 3
 --- !u!114 &114363053371742144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -281,9 +281,10 @@ MonoBehaviour:
   inZeroG: 0
   zeroGravDrag: 1
   zeroGravAngularDrag: 0.05
-  fuelTime: 3
-  timeScalar: 0.2
-  thrust: 50
+  fuelTime: 5
+  currentFuelTime: 0
+  timeScalar: 0.3
+  thrust: 64
 --- !u!114 &114483843830257986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -326,13 +327,13 @@ MonoBehaviour:
         maxInitialSpreadAngle: 0
         dropOffRatio: 0.0001
     RateOfFire:
-      baseRate: 1
+      baseRate: 0
       reloadingData:
         n: 10
-        r: 0
+        r: 0.0001
       burstData: []
     Multishot:
-      numberOfShots: 10
+      numberOfShots: 1
     ChargeTime:
       chargeTime: 0.01
       releaseBeforeChargeComplete: 1
