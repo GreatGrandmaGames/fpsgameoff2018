@@ -7,6 +7,8 @@ TagManager:
   - Generated
   - Projectile
   - Target
+  - Floor
+  - Ocean
   layers:
   - Default
   - TransparentFX

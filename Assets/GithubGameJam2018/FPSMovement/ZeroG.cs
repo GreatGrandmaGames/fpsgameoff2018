@@ -19,10 +19,17 @@ public class ZeroG : MonoBehaviour {
     private float originalDrag = 0f;
     private float originalAngularDrag = 0f;
 
-    //public boys and girls
+    //public floats
     public float zeroGravDrag = 0f;
     public float zeroGravAngularDrag = 0f;
 
+
+    //time of fuel
+    public float fuelTime = 3.0f;
+    [HideInInspector]
+    public float currentFuelTime;
+
+    public float timeScalar = 0.7f;
     //zero g thrust
     public float thrust = 1.0f;
 
@@ -34,13 +41,30 @@ public class ZeroG : MonoBehaviour {
         rb = GetComponent<Rigidbody>(); 
         originalDrag = rb.drag;
         originalAngularDrag = rb.angularDrag;
+        currentFuelTime = fuelTime;
 	}
 
+    private void Update()
+    {
+        if (inZeroG)
+        {
+            Debug.Log(currentFuelTime);
+            currentFuelTime -= Time.unscaledDeltaTime;
+            if (currentFuelTime <= 0.0f)
+            {
+                inZeroG = false;
+                currentFuelTime = fuelTime;
+                Reset();
+            }
+        }
+
+    }
     //idk how to get fixedUpdate to work within a separate code, so I just have the boolean determine when to do it ?
     private void FixedUpdate()
     {
         if (inZeroG)
         {
+            Time.timeScale = timeScalar;
             float x = Input.GetAxisRaw("Horizontal");
             float z = Input.GetAxisRaw("Vertical");
             //regular x movement
@@ -57,6 +81,9 @@ public class ZeroG : MonoBehaviour {
             
             //unsure about forcemode here? acceleration seems to be a good boy?
             rb.AddForce(velocity, ForceMode.Acceleration);
+        }
+        else {
+            Time.timeScale = 1.0f;
         }
 
     }
@@ -77,5 +104,8 @@ public class ZeroG : MonoBehaviour {
         rb.drag = originalDrag;
         rb.angularDrag = originalAngularDrag;
         inZeroG = false;
+        currentFuelTime = fuelTime;
+        rb.angularVelocity = Vector3.zero;
+        rb.velocity = Vector3.zero;
     }
 }
