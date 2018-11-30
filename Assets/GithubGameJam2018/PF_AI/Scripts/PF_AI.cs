@@ -45,6 +45,12 @@ public class PF_AI : MonoBehaviour {
     {
         agent = GetComponent<NavMeshAgent>();
 
+        if(pfPrefab == null)
+        {
+            Debug.LogError("PF_AI: Prefab not assigned");
+            return;
+        }
+
         //PF Init
         pf = Instantiate(pfPrefab, pfParent).GetComponent<ParametricFirearm>();
 
@@ -62,6 +68,11 @@ public class PF_AI : MonoBehaviour {
 
     private void Start()
     {
+        if (pf == null)
+        {
+            return;
+        }
+
         //Movement Speed changes established
         pf.onStateChanged += (state) =>
         {
@@ -82,7 +93,37 @@ public class PF_AI : MonoBehaviour {
 
     public void SetTarget(Damageable d)
     {
+        if (pf == null)
+        {
+            Debug.LogError("PF_AI: PF is null");
+            return;
+        }
+
         StartCoroutine(Intercept(d));
+    }
+
+    public PFData PFData 
+    {
+        get 
+        {
+            if (pf == null)
+            {
+                Debug.LogError("PF_AI: PF is null");
+                return null;
+            }
+
+            return this.pf.Data;
+        }
+        set 
+        {
+            if (pf == null)
+            {
+                Debug.LogError("PF_AI: PF is null");
+                return;
+            }
+
+            pf.Data = value;
+        }
     }
 
     private IEnumerator Intercept(Damageable d)
@@ -93,10 +134,12 @@ public class PF_AI : MonoBehaviour {
 
         while (TargetInSight(d) == false || TargetInRange(d.transform) == false)
         {
-            Debug.Log("Set dest: " + d.transform.position);
             agent.SetDestination(d.transform.position);
 
-            transform.LookAt(d.transform.position, Vector3.up);
+            //Look at in Y Axis
+            var lookPos = d.transform.position - transform.position;
+            lookPos.y = 0;
+            transform.rotation = Quaternion.LookRotation(lookPos);
 
             yield return null;         
         }
