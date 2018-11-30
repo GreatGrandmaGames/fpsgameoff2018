@@ -7,7 +7,7 @@ public class Damageable : MonoBehaviour {
     //added stuff sss
     //TODO: Damageable data?
     public float StartingHealth;
-
+    //hello
     private float currentHealth;
 
 	public float CurrentHealth

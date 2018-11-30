@@ -12,6 +12,7 @@ using UnityEngine.AI;
 public class PF_AI : MonoBehaviour {
 
     public Transform pfParent;
+    public ParametricFirearm pfPrefab;
 
     private NavMeshAgent agent;
     private ParametricFirearm pf;
@@ -38,48 +39,18 @@ public class PF_AI : MonoBehaviour {
         }
     }
 
-    public PF_AIData Data
-    {
-        get;
-        set;
-    }
+    public PF_AIData Data;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
 
-        //TEMP!
-        var pfData = new PFData()
-        {
-            Projectile = new PFProjectileData()
-            {
-                Trajectory = new PFTrajectoryData()
-                {
-                    initialSpeed = 50f,
-                    dropOffRatio = 0.1f,
-                    maxInitialSpreadAngle = 0.1f
-                },
-            },
-            RateOfFire = new PFRateOfFireData(10, 1f)
-            {
-                baseRate = 0.25f,
-            },
-            Multishot = new PFMultishotData()
-            {
-                numberOfShots = 2,
-            },
-            ChargeTime = new PFChargeTimeData()
-            {
-                releaseBeforeChargeComplete = true,
-                chargeTime = 0.5f
-            }
-        };
+        //PF Init
+        pf = Instantiate(pfPrefab, pfParent).GetComponent<ParametricFirearm>();
 
-
-        pf = PFFactory.Instance.CreatePF(pfData);
-
-        pf.transform.SetParent(pfParent);
         pf.transform.localPosition = Vector3.zero;
+        pf.transform.localRotation = Quaternion.identity;
+        pf.transform.localScale = Vector3.one;
 
         referenceBarrelTransform = new GameObject("Reference Barrel Transform").transform;
 
@@ -129,8 +100,6 @@ public class PF_AI : MonoBehaviour {
 
             yield return null;         
         }
-
-        Debug.Log("ENd loop");
 
         if(d != null)
         {
@@ -290,9 +259,6 @@ public class PF_AI : MonoBehaviour {
 [Serializable]
 public class PF_AIData
 {
-    public float minRange;
-    //Max range calculated by PF
-
     public float moveSpeed;
     public float firingMoveSpeedFactor;
 }
