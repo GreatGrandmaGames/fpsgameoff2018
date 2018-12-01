@@ -11,17 +11,17 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1821278453360976}
   m_IsPrefabAsset: 1
---- !u!1 &1480927793243898
+--- !u!1 &1736295404041226
 GameObject:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4420261157974182}
-  - component: {fileID: 33709705789334276}
-  - component: {fileID: 23650518623420538}
-  - component: {fileID: 114824081696696318}
+  - component: {fileID: 4563337128752694}
+  - component: {fileID: 33146124102135706}
+  - component: {fileID: 23197436220108120}
+  - component: {fileID: 114029033136946722}
   m_Layer: 9
   m_Name: GUN
   m_TagString: Untagged
@@ -82,16 +82,16 @@ Transform:
   m_LocalPosition: {x: -0.547, y: 1.22, z: 0.357}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4420261157974182}
+  - {fileID: 4563337128752694}
   m_Father: {fileID: 4892121140176460}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4420261157974182
+--- !u!4 &4563337128752694
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1480927793243898}
+  m_GameObject: {fileID: 1736295404041226}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.34, y: -0.092, z: 0.466}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -106,7 +106,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1821278453360976}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.87, y: 17.48, z: 85.36}
+  m_LocalPosition: {x: -0.26, y: 45.8, z: 100.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4403092549949974}
@@ -153,12 +153,12 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!23 &23650518623420538
+--- !u!23 &23197436220108120
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1480927793243898}
+  m_GameObject: {fileID: 1736295404041226}
   m_Enabled: 1
   m_CastShadows: 2
   m_ReceiveShadows: 1
@@ -188,12 +188,12 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33709705789334276
+--- !u!33 &33146124102135706
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1480927793243898}
+  m_GameObject: {fileID: 1736295404041226}
   m_Mesh: {fileID: 4300000, guid: 1a45c811748705447ae844b82a6f07b7, type: 3}
 --- !u!54 &54091894004982894
 Rigidbody:
@@ -254,67 +254,12 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114256875070203424
+--- !u!114 &114029033136946722
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1821278453360976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29bd280c6cd5d4ff2bd3948e07c7e264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpSpeed: 6
-  movementSpeed: 8
-  numberOfJumps: 3
---- !u!114 &114363053371742144
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1821278453360976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fe32352b98754ffb862da6ad75f31bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inZeroG: 0
-  zeroGravDrag: 1
-  zeroGravAngularDrag: 0.05
-  fuelTime: 5
-  currentFuelTime: 0
-  timeScalar: 0.3
-  thrust: 64
---- !u!114 &114483843830257986
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1821278453360976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b9b0e4cf8ccd4b63a230f4e5691b996, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114593087098121188
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1821278453360976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61c8cd5bf0713f046915bfd109966f84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartingHealth: 10
---- !u!114 &114824081696696318
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1480927793243898}
+  m_GameObject: {fileID: 1736295404041226}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d92ce256acfe40e2a86d593dc9686c3, type: 3}
@@ -322,7 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 1891098023551580, guid: f9e7832778b371b4190df6717eb0959d,
     type: 2}
-  barrelTip: {fileID: 4420261157974182}
+  barrelTip: {fileID: 4563337128752694}
   Data:
     Meta:
       name: Rooty Tooty Shooty Boi
@@ -351,6 +296,64 @@ MonoBehaviour:
       chargeTime: 0.01
       releaseBeforeChargeComplete: 1
       damageIncreaseRate: 0
+--- !u!114 &114256875070203424
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1821278453360976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29bd280c6cd5d4ff2bd3948e07c7e264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpSpeed: 4
+  movementSpeed: 8
+  numberOfJumps: 2
+--- !u!114 &114363053371742144
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1821278453360976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe32352b98754ffb862da6ad75f31bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inZeroG: 0
+  zeroGravDrag: 1
+  zeroGravAngularDrag: 0.05
+  fuelTime: 5
+  cooldownTime: 5
+  currentFuelTime: 0
+  currentCooldownTime: 0
+  canZeroG: 0
+  timeScalar: 0.3
+  thrust: 64
+--- !u!114 &114483843830257986
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1821278453360976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9b0e4cf8ccd4b63a230f4e5691b996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114593087098121188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1821278453360976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61c8cd5bf0713f046915bfd109966f84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartingHealth: 10
 --- !u!114 &114872878463735362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -362,7 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b7a07903b454e09af8bfa70c70c2d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookSensitivity: 2
+  lookSensitivity: 5
 --- !u!114 &114892196729584648
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -374,7 +377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d579c4a9674fd7448e59c0cee2b967e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pf: {fileID: 114824081696696318}
+  pf: {fileID: 114029033136946722}
   reload: 114
 --- !u!124 &124086087042958284
 Behaviour:

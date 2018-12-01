@@ -8,7 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/GithubGameJam2018/Scenes/TitleScreen.unity
+    guid: ff06f300764e04b819a0ce115eaf3595
   - enabled: 1
     path: Assets/GithubGameJam2018/Scenes/DemoTestWithAsset.unity
-    guid: ec5aba4b8909049d4896f3a5640dec74
+    guid: fe4e45273f806497bb80d25df346abc4
   m_configObjects: {}

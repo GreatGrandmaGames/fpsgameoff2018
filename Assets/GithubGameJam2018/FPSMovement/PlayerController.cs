@@ -62,7 +62,10 @@ public class PlayerController : MonoBehaviour {
         //start zero G
         if (Input.GetKeyDown(KeyCode.E))
         {
-            zeroG.MoveInZeroG();
+            if (zeroG.canZeroG)
+            {
+                zeroG.MoveInZeroG();
+            }
         }
         //all movement that's not in ZeroG.
         if (!zeroG.inZeroG)

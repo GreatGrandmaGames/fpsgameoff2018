@@ -9,6 +9,8 @@ TagManager:
   - Target
   - Floor
   - Ocean
+  - Enemy
+  - PlayerProjectile
   layers:
   - Default
   - TransparentFX

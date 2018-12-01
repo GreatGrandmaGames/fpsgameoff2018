@@ -26,9 +26,15 @@ public class ZeroG : MonoBehaviour {
 
     //time of fuel
     public float fuelTime = 3.0f;
+    public float cooldownTime = 5.0f;
     [HideInInspector]
     public float currentFuelTime;
+    [HideInInspector]
+    public float currentCooldownTime;
+    private bool countdownCooldown;
 
+    [HideInInspector]
+    public bool canZeroG;
     public float timeScalar = 0.7f;
     //zero g thrust
     public float thrust = 1.0f;
@@ -42,19 +48,30 @@ public class ZeroG : MonoBehaviour {
         originalDrag = rb.drag;
         originalAngularDrag = rb.angularDrag;
         currentFuelTime = fuelTime;
+        currentCooldownTime = cooldownTime;
+        countdownCooldown = false;
+        canZeroG = true;
 	}
 
     private void Update()
     {
         if (inZeroG)
         {
-            Debug.Log(currentFuelTime);
+            //Debug.Log(currentFuelTime);
             currentFuelTime -= Time.unscaledDeltaTime;
             if (currentFuelTime <= 0.0f)
             {
-                inZeroG = false;
-                currentFuelTime = fuelTime;
                 Reset();
+            }
+        }
+        if (countdownCooldown)
+        {
+            currentCooldownTime -= Time.unscaledDeltaTime;
+            if (currentCooldownTime < 0)
+            {
+                currentCooldownTime = cooldownTime;
+                countdownCooldown = false;
+                canZeroG = true;
             }
         }
 
@@ -104,7 +121,9 @@ public class ZeroG : MonoBehaviour {
         rb.drag = originalDrag;
         rb.angularDrag = originalAngularDrag;
         inZeroG = false;
+        canZeroG = false;
         currentFuelTime = fuelTime;
+        countdownCooldown = true;
         rb.angularVelocity = Vector3.zero;
         rb.velocity = Vector3.zero;
     }

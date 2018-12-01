@@ -135,7 +135,7 @@ public class PFProjectile : MonoBehaviour {
     /// e.g. piercing, blunt force
     /// </summary>
     /// <returns></returns>
-    private float CalculateDamageOnImpact() {
+    public float CalculateDamageOnImpact() {
 
         return Data.ImpactDamage.baseDamage + Data.ImpactDamage.damageDropOff * distanceTravelled;
     }

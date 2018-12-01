@@ -40,4 +40,17 @@ public class Damageable : MonoBehaviour {
         Destroy(gameObject);
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("PlayerProjectile"))
+        {
+            Debug.Log("CURRENT HEALTH: " + currentHealth);
+            currentHealth = currentHealth - collision.gameObject.GetComponent<PFProjectile>().CalculateDamageOnImpact();
+            if(currentHealth < 0)
+            {
+                Destroyed();
+            }//Destroy(this.gameObject);
+        }
+    }
+
 }
