@@ -11,6 +11,7 @@ TagManager:
   - Ocean
   - Enemy
   - PlayerProjectile
+  - PlayerPF
   layers:
   - Default
   - TransparentFX

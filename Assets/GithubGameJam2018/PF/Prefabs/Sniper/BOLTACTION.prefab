@@ -9,45 +9,46 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1984132429545712}
+  m_RootGameObject: {fileID: 1731692968904248}
   m_IsPrefabAsset: 1
---- !u!1 &1984132429545712
+--- !u!1 &1731692968904248
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4207792246521652}
-  - component: {fileID: 33767429441873556}
-  - component: {fileID: 23963047608984438}
-  - component: {fileID: 114917627739154254}
+  - component: {fileID: 4905852197885336}
+  - component: {fileID: 33109826163971066}
+  - component: {fileID: 23687538393838030}
+  - component: {fileID: 114821784876782832}
+  - component: {fileID: 114488877908792054}
   m_Layer: 9
-  m_Name: SNIPER
-  m_TagString: Untagged
+  m_Name: BOLTACTION
+  m_TagString: PlayerPF
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4207792246521652
+  m_IsActive: 0
+--- !u!4 &4905852197885336
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1984132429545712}
+  m_GameObject: {fileID: 1731692968904248}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.429236, y: 2.79, z: 97.67691}
+  m_LocalPosition: {x: 0.34, y: -0.092, z: 0.466}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23963047608984438
+--- !u!23 &23687538393838030
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1984132429545712}
+  m_GameObject: {fileID: 1731692968904248}
   m_Enabled: 1
   m_CastShadows: 2
   m_ReceiveShadows: 1
@@ -77,19 +78,32 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33767429441873556
+--- !u!33 &33109826163971066
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1984132429545712}
+  m_GameObject: {fileID: 1731692968904248}
   m_Mesh: {fileID: 4300000, guid: 1a45c811748705447ae844b82a6f07b7, type: 3}
---- !u!114 &114917627739154254
+--- !u!114 &114488877908792054
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1984132429545712}
+  m_GameObject: {fileID: 1731692968904248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d579c4a9674fd7448e59c0cee2b967e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pf: {fileID: 0}
+  reload: 114
+--- !u!114 &114821784876782832
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1731692968904248}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d92ce256acfe40e2a86d593dc9686c3, type: 3}
@@ -97,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 1891098023551580, guid: f9e7832778b371b4190df6717eb0959d,
     type: 2}
-  barrelTip: {fileID: 4207792246521652}
+  barrelTip: {fileID: 4905852197885336}
   Data:
     Meta:
       name: Rooty Tooty Shooty Boi
@@ -111,14 +125,14 @@ MonoBehaviour:
         maxBlastRange: 1
         numImpactsToDetonate: 1
       Trajectory:
-        initialSpeed: 50
+        initialSpeed: 80
         maxInitialSpreadAngle: 0
         dropOffRatio: 0.0001
     RateOfFire:
       baseRate: 3
       reloadingData:
         n: 1
-        r: 3
+        r: 1
       burstData: []
     Multishot:
       numberOfShots: 1
