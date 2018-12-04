@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class PlayerPFController : MonoBehaviour {
 
+    [HideInInspector]
     public ParametricFirearm pf;
     public KeyCode reload;
-
+    private void Start()
+    {
+        pf = GetComponent<ParametricFirearm>();
+    }
     // Update is called once per frame
     void Update ()
     {
