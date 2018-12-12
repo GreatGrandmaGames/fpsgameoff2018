@@ -6,6 +6,13 @@ using System;
 [RequireComponent(typeof(Rigidbody))]
 public class PFProjectile : MonoBehaviour {
 
+    //Notable Events:
+    public Action OnCollideWithSurface;
+    public Action OnImpact;
+    public Action OnExplode;
+    //end
+
+
     private const float minSpeedBeforeDetonation = 0.001f;
 
     //Calculated properties
@@ -77,15 +84,28 @@ public class PFProjectile : MonoBehaviour {
 
    private void OnCollisionEnter(Collision collision)
     {        
-        numberOfCollisions++;
 
-        if(numberOfCollisions >= Data.AreaDamage.numImpactsToDetonate)
+        if(OnCollideWithSurface != null)
         {
-            Explode();
-            return;
+            OnCollideWithSurface.Invoke();
+
+            //OnCollideWithSurface code goes here
         }
 
-        //if other collider is damageable, apply damage
+        numberOfCollisions++;
+
+        var hitMax = numberOfCollisions >= Data.AreaDamage.numImpactsToDetonate;
+        var damageable = collision.transform.GetComponent<Damageable>();
+
+        if (damageable != null)
+        {
+            Impact(damageable);
+            Explode();
+        }
+        else if (hitMax)
+        {
+            Explode();
+        }
     }
 
     #region Motion
@@ -118,17 +138,30 @@ public class PFProjectile : MonoBehaviour {
 
         //Bullet curve, heat seeking etc.
     }
-    
+
     #endregion
 
     #region Impact
     /// <summary>
     /// When a projectile impacts some surface
     /// </summary>
-    private void ImpactDamage(){ //on some damageable object
-        //applies DamageFunction float to the object that takes the damage
-        float damage = CalculateDamageOnImpact();
+    private void Impact(Damageable damagable)
+    {
+        if (damagable == null)
+        {
+            return;
+        }
+
+        damagable.Damage(CalculateDamageOnImpact());
+
+        if (OnImpact != null)
+        {
+            OnImpact.Invoke();
+
+            //OnCollideWithSurface code goes here
+        }
     }
+
 
     /// <summary>
     /// Uses PGFImpaceDamageData to calculate impace damage. This is non-explosive damage
@@ -144,13 +177,24 @@ public class PFProjectile : MonoBehaviour {
     #region Area
     public void Explode()
     {
-        Debug.Log("Exploding!!");
-
-        foreach(var col in Physics.OverlapSphere(transform.position, Data.AreaDamage.maxBlastRange))
+        foreach (var col in Physics.OverlapSphere(transform.position, Data.AreaDamage.maxBlastRange))
         {
-            Debug.Log("Damage to " + col.name + " is " + CalculateDamageOnExplosion(col.transform.position));
+            var dam = col.GetComponent<Damageable>();
+
+            if (dam != null)
+            {
+                dam.Damage(CalculateDamageOnExplosion(dam.transform.position));
+            }
         }
 
+        if (OnExplode != null)
+        {
+            OnExplode.Invoke();
+
+            //OnCollideWithSurface code goes here
+        }
+
+        //NB audio source will be destoryed next frame! Spawn new object with audio source 
         Destroy(gameObject);
     }
 

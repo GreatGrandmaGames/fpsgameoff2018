@@ -5,6 +5,16 @@ using UnityEngine;
 
 public class ParametricFirearm : MonoBehaviour
 {
+    //Notable Events
+    public Action OnTriggerPress;
+    public Action<float> OnCharge; //float is charge percentage
+    public Action OnTriggerRelease;
+    public Action OnFire;
+    public Action OnReload;
+    public Action<float> OnCoolDown; //float is cooldown percentage
+    //end
+
+
     [Header("Projectile Spawning")]
     public GameObject projectilePrefab;
     [Tooltip("Where the projectile will spawn from and its initial direction (z-axis)")]
@@ -62,6 +72,14 @@ public class ParametricFirearm : MonoBehaviour
     /// </summary>
     public Coroutine TriggerPress()
     {
+
+        if (OnTriggerPress != null)
+        {
+            OnTriggerPress();
+
+            //on trigger pressed code goes here
+        }
+
         if (State == PFState.Ready)
         {
             State = PFState.Charging;
@@ -78,6 +96,15 @@ public class ParametricFirearm : MonoBehaviour
     /// </summary>
     public Coroutine TriggerRelease()
     {
+
+        if (OnTriggerRelease != null)
+        {
+            OnTriggerRelease();
+
+            //on trigger release code goes here
+        }
+
+
         if (State == PFState.Charging)
         {
             //Interupt charging
@@ -147,8 +174,19 @@ public class ParametricFirearm : MonoBehaviour
     /// </summary>    
     private Coroutine Fire()
     {
-        for(int i = 0; i < Data.Multishot.numberOfShots; i++)
+        if (OnFire != null)
         {
+            OnFire();
+
+            //on fire code goes here
+
+            //nb this is only called once, regardless of projectile count
+            //if you want a sound for each projectile, place code in the loop below...
+        }
+
+        for (int i = 0; i < Data.Multishot.numberOfShots; i++)
+        {
+
             //Spawn the projectile
             var projectileObject = Instantiate(projectilePrefab);
 
@@ -181,7 +219,19 @@ public class ParametricFirearm : MonoBehaviour
     private IEnumerator Charge()
     {
         //state is charge
-        yield return new WaitForSeconds(Data.ChargeTime.chargeTime);
+
+        float timer = 0f;
+
+        while(timer < Data.ChargeTime.chargeTime)
+        {
+            timer += Time.deltaTime;
+            if (OnCharge != null)
+            {
+                OnCharge(timer / Data.ChargeTime.chargeTime);
+            }
+
+            yield return null;
+        }
 
         Fire();
         //state is cool down
@@ -195,7 +245,20 @@ public class ParametricFirearm : MonoBehaviour
     private IEnumerator CoolDown()
     {
         State = PFState.CoolDown;
-        yield return new WaitForSeconds(Data.RateOfFire.GetWaitTime(CurrentAmmo));
+
+        float timer = 0f;
+        float coolDownTime = Data.RateOfFire.GetWaitTime(CurrentAmmo);
+
+        while (timer < coolDownTime)
+        {
+            timer += Time.deltaTime;
+            if (OnCoolDown != null)
+            {
+                OnCoolDown(timer / coolDownTime);
+            }
+
+            yield return null;
+        }
 
         //If was a forced reload
         if(CurrentAmmo <= 0)
@@ -210,6 +273,14 @@ public class ParametricFirearm : MonoBehaviour
     private IEnumerator Reload()
     {
         State = PFState.ManualReload;
+
+        if(OnReload != null)
+        {
+            OnReload();
+
+            //reload code here
+        }
+
         yield return new WaitForSeconds(Data.RateOfFire.reloadingData.r);
 
         //for now, we are assuming the Overwatch model of ammo - infinte with reloads
@@ -221,5 +292,10 @@ public class ParametricFirearm : MonoBehaviour
     public override string ToString()
     {
         return string.Format("PF named {0} is in state: {1}, has current ammo {2}", Data.Meta.name, State.ToString(), CurrentAmmo);
+    }
+
+    private void Update()
+    {
+        Debug.Log(ToString());
     }
 }
