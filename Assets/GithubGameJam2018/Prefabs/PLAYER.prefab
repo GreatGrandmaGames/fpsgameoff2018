@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33847112170922670}
   - component: {fileID: 23264623827842338}
   - component: {fileID: 114213624354653540}
-  - component: {fileID: 114420708563555018}
   m_Layer: 9
   m_Name: BOLTACTION
   m_TagString: PlayerPF
@@ -41,7 +40,6 @@ GameObject:
   - component: {fileID: 33214528258610540}
   - component: {fileID: 23694649859896946}
   - component: {fileID: 114724739391944926}
-  - component: {fileID: 114103315956040070}
   m_Layer: 9
   m_Name: 6SHOT
   m_TagString: PlayerPF
@@ -64,7 +62,8 @@ GameObject:
   - component: {fileID: 114363053371742144}
   - component: {fileID: 54091894004982894}
   - component: {fileID: 65074511647045398}
-  - component: {fileID: 114593087098121188}
+  - component: {fileID: 114799923996768184}
+  - component: {fileID: 114108300413535832}
   m_Layer: 9
   m_Name: PLAYER
   m_TagString: Player
@@ -84,7 +83,6 @@ GameObject:
   - component: {fileID: 92858499360997642}
   - component: {fileID: 124086087042958284}
   - component: {fileID: 81697417436391732}
-  - component: {fileID: 114617830867640594}
   m_Layer: 9
   m_Name: CAMERA
   m_TagString: MainCamera
@@ -140,7 +138,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1821278453360976}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.6076894, y: 18.294188, z: 126.520966}
+  m_LocalPosition: {x: -0.26, y: 45.8, z: 100.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4403092549949974}
@@ -330,19 +328,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114103315956040070
+--- !u!114 &114108300413535832
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1660235010593894}
+  m_GameObject: {fileID: 1821278453360976}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d579c4a9674fd7448e59c0cee2b967e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pf: {fileID: 0}
+  scrollWeaponsKey: 102
   reload: 114
+  inventory:
+  - {fileID: 114724739391944926}
+  - {fileID: 114213624354653540}
 --- !u!114 &114213624354653540
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -420,19 +421,6 @@ MonoBehaviour:
   canZeroG: 0
   timeScalar: 0.3
   thrust: 64
---- !u!114 &114420708563555018
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1167850202931202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d579c4a9674fd7448e59c0cee2b967e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pf: {fileID: 0}
-  reload: 114
 --- !u!114 &114483843830257986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -442,29 +430,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b9b0e4cf8ccd4b63a230f4e5691b996, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114593087098121188
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1821278453360976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61c8cd5bf0713f046915bfd109966f84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartingHealth: 10
---- !u!114 &114617830867640594
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1965347050091688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 866f86e02107e4f399d025fda04589d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114724739391944926
@@ -509,6 +474,19 @@ MonoBehaviour:
       chargeTime: 0.01
       releaseBeforeChargeComplete: 1
       damageIncreaseRate: 0
+--- !u!114 &114799923996768184
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1821278453360976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac696accbbe65774a98f70724f1bde9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 20
+  currentHealth: 0
 --- !u!114 &114872878463735362
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +11,12 @@ using UnityEngine;
  * Can also set the drag and thrust as public variables (eventually powerups)
  */
 public class ZeroG : MonoBehaviour {
+
+    //Notable events
+    public Action OnExitZeroG;
+    public Action OnMoveInZeroG;
+    //end
+
 
     [HideInInspector]
     public bool inZeroG = false;
@@ -95,6 +101,13 @@ public class ZeroG : MonoBehaviour {
             
             //calculate velocity
             velocity = (moveHorizontal + moveVertical + moveUp).normalized * thrust;
+
+            if(OnMoveInZeroG != null)
+            {
+                OnMoveInZeroG();
+
+                //on move in zero G
+            }
             
             //unsure about forcemode here? acceleration seems to be a good boy?
             rb.AddForce(velocity, ForceMode.Acceleration);
@@ -126,5 +139,13 @@ public class ZeroG : MonoBehaviour {
         countdownCooldown = true;
         rb.angularVelocity = Vector3.zero;
         rb.velocity = Vector3.zero;
+
+
+        if (OnExitZeroG != null)
+        {
+            OnExitZeroG();
+
+            //on damaged code goes here
+        }
     }
 }

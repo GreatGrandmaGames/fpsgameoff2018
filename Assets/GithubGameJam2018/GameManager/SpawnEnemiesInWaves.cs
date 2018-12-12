@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using System;
 
 public class SpawnEnemiesInWaves : MonoBehaviour
 {
-    public TextMeshProUGUI nextWaveDescription;
-    public Damageable player;
+    //Notable Events:
+    public Action OnWaveStart;
+    public Action OnWaveComplete;
+    //end
+
+
+    #region Data Classes
     public enum SpawnState
 	{
 		SPAWNING,
@@ -18,125 +23,131 @@ public class SpawnEnemiesInWaves : MonoBehaviour
 	public class Wave
 	{
 		public string name;
-		public GameObject enemy;
-		public int count;
-		public float rate;
-        public Transform position;
-        public string nextWaveDescription;
+        public List<EnemyCluster> clusters;
 	}
 
-	public Wave[] waves;
-    [HideInInspector]
-	public int nextWave = 0;
-
-	public float timeBetweenWaves = 5f;
-
-	public float waveCountdown;
-
-	private float searchCountdown = 1f;
-
-    private bool start;
-    //private GameObject Manager;
-    [HideInInspector]
-	public SpawnState state = SpawnState.COUNTING;
-	// Use this for initialization
-	void Start ()
-	{
-		waveCountdown = timeBetweenWaves;
-        start = false;
-        //Manager = GameObject.FindGameObjectWithTag("Manager");
-
+    [System.Serializable]
+    public class EnemyCluster
+    {
+        public PF_AI enemyPrefab;
+        public int count;
+        public Transform spawnPoint;
+        public float rate;
     }
-	
-	// Update is called once per frame
-	void Update () 
+    #endregion
+
+    //References
+    public Damageable player;
+
+    //Variables - Modify me in the inspector
+    public int startingWave;
+    public float timeBetweenWaves = 5f;
+
+    [SerializeField]
+	public Wave[] waves;
+
+    //Bookkeeping
+    private List<PF_AI> enemies = new List<PF_AI>();
+
+    public int WaveCount { get; private set; }
+
+	private SpawnState state = SpawnState.COUNTING;
+
+    private void Start()
+    {
+        StartCoroutine(StartNextWave(0f));
+    }
+
+    bool EnemyIsAlive()
 	{
-		//kill all, then switch wave
-        if (start)
+        return enemies.Count > 0;
+	}
+
+    IEnumerator StartNextWave(float delay)
+    {
+        Debug.Log("Starting Wave: " + WaveCount);
+
+        yield return new WaitForSeconds(delay);
+
+        if(OnWaveStart != null)
         {
-            nextWaveDescription.text = "3 seconds until wave starts";
+            OnWaveStart.Invoke();
+
+            //Wave start code here
         }
-		if (state == SpawnState.WAITING)
-		{
-            if (!EnemyIsAlive())
-			{
-				WaveCompleted();
-				return;
-			}
-			else
-			{
-				return;
-			}
-		}
-		
-		if (waveCountdown <= 0)
-		{
-			if (state != SpawnState.SPAWNING)
-			{
-                nextWaveDescription.enabled = false;
-                StartCoroutine(SpawnWave(waves[nextWave]));
-                start = false;
 
-			}
-		}
-		else
-		{
-            waveCountdown -= Time.unscaledDeltaTime;
+        Wave wave = waves[WaveCount];
+
+
+        state = SpawnState.SPAWNING;
+
+        int completeCount = wave.clusters.Count;
+
+        foreach(var ec in wave.clusters)
+        {
+            StartCoroutine(SpawnCluster(ec, () =>
+            {
+                completeCount--;
+
+                if(completeCount <= 0)
+                {
+                    state = SpawnState.WAITING;
+                }
+            }));
         }
-	}
 
-	void WaveCompleted()
+        StartCoroutine(ListenForEndOfWave());
+    }
+
+    IEnumerator ListenForEndOfWave()
+    {
+        while (EnemyIsAlive() || state == SpawnState.SPAWNING)
+        {
+            yield return null;
+        }
+
+        state = SpawnState.COUNTING;
+
+        Debug.Log("Wave: " + WaveCount + " Complete" );
+
+        if (OnWaveComplete != null)
+        {
+            OnWaveComplete.Invoke();
+
+            //Wave complete code here
+        }
+
+        WaveCount = (WaveCount + 1) % waves.Length;
+
+        StartCoroutine(StartNextWave(timeBetweenWaves));
+    }
+
+    IEnumerator SpawnCluster(EnemyCluster cluster, Action onComplete)
+    {
+        for (int i = 0; i < cluster.count; i++)
+        {
+            SpawnEnemy(cluster.enemyPrefab, cluster.spawnPoint);
+            yield return new WaitForSeconds(1f / cluster.rate);
+        }
+
+        if (onComplete != null)
+        {
+            onComplete();
+        }
+    }
+
+    void SpawnEnemy(PF_AI enemy, Transform t)
 	{
+        Debug.Log("Spawning Enemy at " + t.position);
 
-		state = SpawnState.COUNTING;
-		waveCountdown = timeBetweenWaves;
-        nextWaveDescription.enabled = true;
-        nextWaveDescription.text = waves[nextWave].nextWaveDescription;
-        nextWave += 1;
-		//wtf brackeys
-		if (nextWave + 1 > waves.Length - 1)
-		{
-			nextWave = 0;
-			Debug.Log("All Waves Completed");
-		}
-		Debug.Log("Wave Completed");
+		PF_AI e = Instantiate(enemy, t.position, t.rotation);
+        e.SetTarget(player);
 
-	}
+        enemies.Add(e);
 
-	bool EnemyIsAlive()
-	{
-        searchCountdown -= Time.unscaledDeltaTime;
-		if (searchCountdown <= 0f)
-		{
-			searchCountdown = 1f;
-			if (GameObject.FindGameObjectWithTag("Enemy") == null)
-			{
-				return false;
-			}
-		}
-		return true;
-	}
-		
-	IEnumerator SpawnWave(Wave wave)
-	{
-		Debug.Log("Spawning Wave" + wave.name);
-		state = SpawnState.SPAWNING;
-
-		for (int i = 0; i < wave.count; i++)
-		{
-            SpawnEnemy(wave.enemy, wave.position.position);
-			yield return new WaitForSeconds(1f / wave.rate);
-		}
-
-		//now we're waiting for more enemies
-		state = SpawnState.WAITING;
-		yield break;
-	}
-
-	void SpawnEnemy(GameObject enemy, Vector3 position)
-	{
-
-		GameObject e = Instantiate(enemy, position, transform.rotation);
-        e.GetComponent<PF_AI>().SetTarget(player);
+        e.GetComponent<Damageable>().OnDestroyed += () =>
+        {
+            enemies.Remove(e);
+        };
 	}
 }

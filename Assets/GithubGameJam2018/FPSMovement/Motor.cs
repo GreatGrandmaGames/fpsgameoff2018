@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 /*
@@ -6,6 +6,13 @@ using UnityEngine;
  * This does the positional movement. Pretty basic stuff, except we're using rb.MovePosition
  */
 public class Motor : MonoBehaviour {
+
+    //Notable events
+    public Action OnPlayerWalk;
+    public Action OnPlayerJump;
+    //end
+
+
     private Rigidbody rb;
     private Vector3 velocity;
     private ZeroG zerog;
@@ -40,6 +47,16 @@ public class Motor : MonoBehaviour {
     {
         //maybe we should have velocity equal to zero? unclear tho haven't bug tested enough
         if (velocity != Vector3.zero){
+
+            if(OnPlayerWalk != null){
+                OnPlayerWalk();
+
+                //On player move code here
+
+            //nb called every fixed update
+            }
+
+
             rb.MovePosition(rb.position + velocityp * Time.deltaTime);
         }
     }
@@ -47,6 +64,16 @@ public class Motor : MonoBehaviour {
     //jump function, just adds a vertical impulse force.
     public void Jump(float jumpSpeed)
     {
+
+        if (OnPlayerJump != null)
+        {
+            OnPlayerJump();
+
+            //On player move code here
+
+            //nb called every fixed update
+        }
+
         rb.AddForce(new Vector3(0f, jumpSpeed, 0f), ForceMode.Impulse);
     }
 }

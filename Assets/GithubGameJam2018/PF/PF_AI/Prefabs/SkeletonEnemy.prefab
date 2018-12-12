@@ -1046,9 +1046,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4366295116700104}
   - component: {fileID: 195668436660660640}
-  - component: {fileID: 114983320131679312}
   - component: {fileID: 65390466479249094}
-  - component: {fileID: 114024053399795754}
+  - component: {fileID: 114682331031587756}
+  - component: {fileID: 114767391484981328}
   m_Layer: 0
   m_Name: SkeletonEnemy
   m_TagString: Enemy
@@ -4251,7 +4251,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114024053399795754
+--- !u!114 &114682331031587756
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4259,26 +4259,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1728149255877970}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61c8cd5bf0713f046915bfd109966f84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartingHealth: 10
---- !u!114 &114983320131679312
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1728149255877970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a450d42489811474db7109c01e1f9799, type: 3}
+  m_Script: {fileID: 11500000, guid: e801181982c7e0546a06b6cc332f6996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pfParent: {fileID: 4151447025283082}
-  pfPrefab: {fileID: 114917627739154254, guid: 6b62405337bc34ca88ce3f2b0fb8b1f7, type: 2}
+  pfPrefab: {fileID: 114917627739154254, guid: 2e0caa3c791944cfc9b1ea187919ba91, type: 2}
   Data:
-    moveSpeed: 5
-    firingMoveSpeedFactor: 5
+    moveSpeed: 3
+    firingMoveSpeedFactor: 0.6
+--- !u!114 &114767391484981328
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1728149255877970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac696accbbe65774a98f70724f1bde9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  currentHealth: 0
 --- !u!137 &137041577748403556
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

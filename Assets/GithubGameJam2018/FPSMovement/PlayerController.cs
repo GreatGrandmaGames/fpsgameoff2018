@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +11,13 @@ using UnityEngine;
  * physics calculations. Here is where we assign the keys that controls our game component.
  */
 public class PlayerController : MonoBehaviour {
+
+    //Notable events
+    public Action OnEnterZeroG;
+        //end
+
+
+
     private Rigidbody rb;
     private Motor motor;
     public float jumpSpeed;
@@ -62,6 +69,13 @@ public class PlayerController : MonoBehaviour {
         //start zero G
         if (Input.GetKeyDown(KeyCode.E))
         {
+            if(OnEnterZeroG != null)
+            {
+                OnEnterZeroG.Invoke();
+
+                //on enter zero G
+            }
+
             if (zeroG.canZeroG)
             {
                 zeroG.MoveInZeroG();

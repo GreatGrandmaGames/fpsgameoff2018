@@ -11,6 +11,10 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Damageable))]
 public class PF_AI : MonoBehaviour {
 
+    //Notable events
+    public Action OnMoving;
+    //end
+
     public Transform pfParent;
     public ParametricFirearm pfPrefab;
 
@@ -89,6 +93,23 @@ public class PF_AI : MonoBehaviour {
                 agent.speed = Data.moveSpeed;
             }
         };
+    }
+
+    private void Update()
+    {
+        if(agent.isStopped == false)
+        {
+            if(OnMoving != null)
+            {
+                OnMoving();
+
+                //on moving code here
+
+            //nb this is called every frame
+
+            //if you need start / stop moving, check for changes in agent.isStopped
+            }
+        }
     }
 
     public void SetTarget(Damageable d)
